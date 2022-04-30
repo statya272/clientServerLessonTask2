@@ -1,4 +1,3 @@
-import javax.swing.text.DefaultStyledDocument;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,9 +15,17 @@ public class Server {
                  BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))) {
                 System.out.println("New connection accepted");
 
-                final String name = in.readLine();
-
-                out.println(String.format("Hi %s, your port is %d", name, clientSocket.getPort()));
+                out.println("Write your name");
+                String name = in.readLine();
+                out.println("Are you child? (yes/no)");
+                String isChild = in.readLine();
+                if (isChild.equalsIgnoreCase("yes")) {
+                    out.println("Welcome to the kids area, " + name + ". Let's play!");
+                } else if (isChild.equalsIgnoreCase("no")) {
+                    out.println("Welcome to the adult zone, " + name + ". Have a good rest, or a good working day!");
+                } else {
+                    out.println("Error! Try again");
+                }
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
